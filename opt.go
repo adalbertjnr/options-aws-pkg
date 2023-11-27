@@ -7,6 +7,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/ebs"
+	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	"github.com/aws/aws-sdk-go-v2/service/ecr"
 	"github.com/aws/aws-sdk-go-v2/service/iam"
 	"github.com/aws/aws-sdk-go-v2/service/route53"
@@ -35,6 +36,7 @@ type (
 		EcrClient *ecr.Client
 		SsmClient *ssm.Client
 		EbsClient *ebs.Client
+		Ec2Client *ec2.Client
 	}
 )
 
@@ -62,7 +64,7 @@ func MustLoadConfig(profile, region string) *Config {
 	}
 }
 
-func WithIam(opt *Options) {
+func WithIAM(opt *Options) {
 	opt.IamClient = iam.NewFromConfig(opt.AwsCfg)
 }
 
@@ -74,7 +76,7 @@ func WithR53(opt *Options) {
 	opt.R53Client = route53.NewFromConfig(opt.AwsCfg)
 }
 
-func WithEcr(opt *Options) {
+func WithECR(opt *Options) {
 	opt.EcrClient = ecr.NewFromConfig(opt.AwsCfg)
 }
 
@@ -84,4 +86,8 @@ func WithSSM(opt *Options) {
 
 func WithEBS(opt *Options) {
 	opt.EbsClient = ebs.NewFromConfig(opt.AwsCfg)
+}
+
+func WithEC2(opt *Options) {
+	opt.Ec2Client = ec2.NewFromConfig(opt.AwsCfg)
 }
